@@ -1,12 +1,17 @@
 """
 Interface Streamlit — À CRÉER PAR VOUS pour le jury.
 
+Cette application fournit une interface simple pour charger des transactions (fichier exemple ou import),
+lancer une analyse via `detect_fraud()` et explorer les résultats : indicateurs clés, filtres, graphiques
+et détails par transaction. L'objectif est d'offrir une vue claire et compréhensible pour un public
+non technique (le jury) afin de faciliter la comparaison et le repêchage des candidats.
+
 Le jury lancera :  streamlit run app.py
 
 Règles :
-  - Ne modifiez pas l'appel à detect_fraud / load_transactions (contrat technique).
-  - Personnalisez render_interface() : clarté, intuitivité, compréhension pour un public non technique.
-  - L'interface n'est PAS notée par la CI ; elle sert au jury pour repêcher et comparer les candidats.
+    - Ne modifiez pas l'appel à detect_fraud / load_transactions (contrat technique).
+    - Personnalisez render_interface() : clarté, intuitivité, compréhension pour un public non technique.
+    - L'interface n'est PAS notée par la CI ; elle sert au jury pour repêcher et comparer les candidats.
 """
 
 from pathlib import Path
