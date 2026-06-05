@@ -21,6 +21,7 @@ REASON_NEGATIVE_AMOUNT = "Montant nul ou négatif"
 REASON_HIGH_AMOUNT = "Montant très supérieur à l'habitude du client"
 REASON_GEO = "Deux pays différents en trop peu de temps"
 REASON_FREQUENCY = "Fréquence de transactions anormalement élevée"
+REASON_DUPLICATE = "Transaction en double détectée"
 
 
 def load_transactions(path):
@@ -159,6 +160,7 @@ def detect_fraud(transactions):
     is_suspicious (bool), reason (str) — un résultat par transaction, même ordre.
     """
     geo_flags = _find_geo_conflicts(transactions)
+    seen_ids = set()
     user_amount_history = defaultdict(list)
     user_tx_history = defaultdict(list)
 
@@ -177,6 +179,10 @@ def detect_fraud(transactions):
             is_suspicious = True
             fraud_score = 0.85
             reason = f"Champs obligatoires manquants: {', '.join(missing)}"
+        elif tid is not None and tid in seen_ids:
+            is_suspicious = True
+            fraud_score = 0.8
+            reason = REASON_DUPLICATE
         elif amount is not None and amount <= 0:
             is_suspicious = True
             fraud_score = 0.9
@@ -198,6 +204,8 @@ def detect_fraud(transactions):
                     fraud_score = freq_score
                     reason = REASON_FREQUENCY
 
+        if tid is not None:
+            seen_ids.add(tid)
         if user is not None:
             user_tx_history[user].append(tx)
             if amount is not None and amount > 0:
