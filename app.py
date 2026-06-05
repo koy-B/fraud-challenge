@@ -33,15 +33,83 @@ def render_interface(transactions: list[dict], results: list[dict]) -> None:
 
     Le jury évalue : clarté, utilité, intuitivité — pas le code en lui-même.
     """
-    st.warning(
-        "Interface à compléter : remplacez ce message par votre propre écran "
-        "dans la fonction `render_interface()`."
-    )
+    import pandas as pd
 
-    # Fallback minimal — à remplacer par votre design
-    st.subheader("Aperçu brut (temporaire)")
-    st.caption(f"{len(transactions)} transactions · {sum(1 for r in results if r.get('is_suspicious'))} alerte(s)")
-    st.dataframe(results, use_container_width=True)
+    # Merge original transactions with results for a rich table
+    df_tx = pd.DataFrame(transactions)
+    df_res = pd.DataFrame(results)
+    if "transaction_id" in df_tx.columns and "transaction_id" in df_res.columns:
+        df = df_tx.merge(df_res, on="transaction_id", how="right")
+    else:
+        df = df_res.copy()
+
+    # Basic KPIs
+    total = len(df)
+    suspicious_count = int(df["is_suspicious"].sum()) if "is_suspicious" in df.columns else 0
+    avg_score = float(df["fraud_score"].mean()) if "fraud_score" in df.columns else 0.0
+
+    k1, k2, k3 = st.columns([1, 1, 2])
+    k1.metric("Transactions", f"{total}")
+    k2.metric("Alertes", f"{suspicious_count}")
+    k3.metric("Score moyen", f"{avg_score:.2f}")
+
+    st.markdown("---")
+
+    # Filters
+    with st.expander("Filtres"):
+        cols = st.columns(3)
+        country_opts = ["(Tous)"] + sorted(df["country"].dropna().unique().tolist()) if "country" in df.columns else ["(Tous)"]
+        country = cols[0].selectbox("Pays", country_opts)
+        only_suspicious = cols[1].checkbox("Afficher uniquement les suspectes", value=False)
+        min_score = cols[2].slider("Score minimal", 0.0, 1.0, 0.0, 0.01)
+
+    # Apply filters
+    df_view = df.copy()
+    if country and country != "(Tous)" and "country" in df_view.columns:
+        df_view = df_view[df_view["country"] == country]
+    if only_suspicious and "is_suspicious" in df_view.columns:
+        df_view = df_view[df_view["is_suspicious"] == True]
+    if "fraud_score" in df_view.columns:
+        df_view = df_view[df_view["fraud_score"] >= float(min_score)]
+
+    # Charts
+    st.subheader("Vue d'ensemble")
+    chart_cols = st.columns(2)
+    if "country" in df_view.columns:
+        by_country = df_view["country"].fillna("(inconnu)").value_counts()
+        chart_cols[0].bar_chart(by_country)
+    if "merchant" in df_view.columns:
+        by_merchant = df_view["merchant"].fillna("(inconnu)").value_counts().head(10)
+        chart_cols[1].bar_chart(by_merchant)
+
+    st.markdown("---")
+
+    # Table of transactions
+    st.subheader("Transactions")
+    display_cols = [c for c in ["transaction_id", "timestamp", "user_id", "amount", "currency", "merchant", "country", "fraud_score", "is_suspicious", "reason"] if c in df_view.columns]
+    st.dataframe(df_view[display_cols].sort_values(by=["fraud_score"], ascending=False), use_container_width=True)
+
+    # Detail panel
+    st.markdown("---")
+    st.subheader("Détails d'une transaction")
+    tx_ids = df_view["transaction_id"].tolist()
+    if tx_ids:
+        sel = st.selectbox("Sélectionner une transaction", options=tx_ids)
+        row = df_view[df_view["transaction_id"] == sel].iloc[0]
+        st.write(row[display_cols].to_dict())
+        score = float(row.get("fraud_score", 0.0))
+        st.progress(min(max(score, 0.0), 1.0))
+        st.caption(f"Raison: {row.get('reason', '')}")
+    else:
+        st.info("Aucune transaction à afficher avec les filtres sélectionnés.")
+
+    # Explainability / notes
+    with st.expander("Comment sont prises les décisions ?"):
+        st.write(
+            "Le modèle présenté ici utilise des règles simples pour l'exemple : montants non-positifs sont signalés, "
+            "et les montants très supérieurs à l'historique de l'utilisateur sont considérés comme suspects. "
+            "Pour un usage réel, remplacez par un modèle ML ou règles métier robustes et documentées."
+        )
 
 
 def main() -> None:
