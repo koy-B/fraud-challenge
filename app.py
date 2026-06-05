@@ -165,6 +165,182 @@ def _inject_styles() -> None:
         box-shadow: 0 6px 28px rgba(6, 182, 212, 0.45);
       }
 
+      .filter-panel {
+        background: rgba(8, 16, 32, 0.85);
+        border: 1px solid rgba(56, 189, 248, 0.15);
+        border-radius: 14px;
+        padding: 16px 18px 6px 18px;
+        margin-bottom: 16px;
+      }
+      .tx-count {
+        display: inline-block;
+        background: rgba(6, 182, 212, 0.15);
+        color: #67e8f9;
+        font-size: 0.78rem;
+        font-weight: 600;
+        padding: 4px 12px;
+        border-radius: 20px;
+        border: 1px solid rgba(6, 182, 212, 0.25);
+        margin-bottom: 14px;
+      }
+      .tx-list {
+        border: 1px solid rgba(148, 163, 184, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+        font-size: 0.78rem;
+      }
+      .tx-head, .tx-row {
+        display: grid;
+        grid-template-columns: 8px 90px 1.2fr 56px 40px 88px 52px 1.4fr;
+        gap: 8px;
+        align-items: center;
+        padding: 7px 12px;
+      }
+      .tx-head {
+        background: rgba(8, 16, 32, 0.9);
+        color: #64748b;
+        font-size: 0.65rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+      }
+      .tx-row {
+        border-bottom: 1px solid rgba(148, 163, 184, 0.06);
+        transition: background 0.12s;
+      }
+      .tx-row:last-child { border-bottom: none; }
+      .tx-row:hover { background: rgba(6, 182, 212, 0.06); }
+      .tx-row.suspect { background: rgba(248, 113, 113, 0.04); }
+      .tx-dot {
+        width: 7px; height: 7px; border-radius: 50%;
+      }
+      .tx-dot.alert { background: #f87171; box-shadow: 0 0 6px #f87171; }
+      .tx-dot.ok { background: #4ade80; }
+      .tx-col-id {
+        font-family: 'JetBrains Mono', monospace;
+        font-weight: 600;
+        color: #e2e8f0;
+        font-size: 0.72rem;
+      }
+      .tx-col-merchant { color: #cbd5e1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .tx-col-user, .tx-col-country { color: #94a3b8; }
+      .tx-col-amount {
+        font-family: 'JetBrains Mono', monospace;
+        font-weight: 600;
+        color: #f1f5f9;
+        text-align: right;
+        font-size: 0.72rem;
+      }
+      .tx-col-score {
+        font-weight: 700;
+        text-align: center;
+        font-size: 0.72rem;
+      }
+      .tx-col-reason {
+        color: #64748b;
+        font-size: 0.68rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      @media (max-width: 900px) {
+        .tx-head, .tx-row {
+          grid-template-columns: 8px 80px 1fr 50px 72px 1fr;
+        }
+        .tx-head span:nth-child(5),
+        .tx-head span:nth-child(8),
+        .tx-row span:nth-child(5),
+        .tx-row span:nth-child(8) { display: none; }
+      }
+
+      .inspector-wrap {
+        background: linear-gradient(160deg, rgba(10, 20, 40, 0.95) 0%, rgba(6, 12, 28, 0.98) 100%);
+        border: 1px solid rgba(56, 189, 248, 0.2);
+        border-radius: 18px;
+        padding: 24px 28px;
+        margin-top: 8px;
+      }
+      .inspector-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 20px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+      }
+      .inspector-id {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #f8fafc;
+      }
+      .inspector-status {
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 8px 16px;
+        border-radius: 10px;
+      }
+      .inspector-status.alert {
+        background: rgba(248, 113, 113, 0.15);
+        color: #fca5a5;
+        border: 1px solid rgba(248, 113, 113, 0.3);
+      }
+      .inspector-status.ok {
+        background: rgba(74, 222, 128, 0.12);
+        color: #86efac;
+        border: 1px solid rgba(74, 222, 128, 0.25);
+      }
+      .info-chip {
+        background: rgba(15, 23, 42, 0.8);
+        border: 1px solid rgba(148, 163, 184, 0.1);
+        border-radius: 10px;
+        padding: 12px 14px;
+        margin-bottom: 8px;
+      }
+      .info-chip-label {
+        font-size: 0.68rem;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 4px;
+      }
+      .info-chip-value {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #e2e8f0;
+      }
+      .score-bar-wrap { margin-bottom: 14px; }
+      .score-bar-label {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.78rem;
+        color: #94a3b8;
+        margin-bottom: 5px;
+      }
+      .score-bar-track {
+        height: 8px;
+        background: rgba(30, 41, 59, 0.8);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .score-bar-fill {
+        height: 100%;
+        border-radius: 4px;
+        transition: width 0.4s ease;
+      }
+      .verdict-box {
+        background: rgba(8, 16, 32, 0.6);
+        border-radius: 12px;
+        padding: 16px 18px;
+        margin-top: 16px;
+        border-left: 4px solid;
+      }
+
       #MainMenu, footer, header { visibility: hidden; }
     </style>
     """, unsafe_allow_html=True)
@@ -175,6 +351,131 @@ def _risk_level(score: float) -> tuple[str, str]:
         if low <= score < high:
             return label, color
     return "Élevé", "#ef4444"
+
+
+def _esc(text) -> str:
+    if text is None:
+        return "—"
+    return (
+        str(text)
+        .replace("&", "&amp;")
+        .replace("<", "&lt;")
+        .replace(">", "&gt;")
+        .replace('"', "&quot;")
+    )
+
+
+def _score_bar(label: str, value: float, color: str) -> str:
+    pct = min(100, max(0, int(value * 100)))
+    return f"""
+    <div class="score-bar-wrap">
+      <div class="score-bar-label"><span>{label}</span><span>{pct}%</span></div>
+      <div class="score-bar-track">
+        <div class="score-bar-fill" style="width:{pct}%;background:{color};"></div>
+      </div>
+    </div>"""
+
+
+def _tx_row_html(row) -> str:
+    score = float(row.get("fraud_score", 0))
+    _, color = _risk_level(score)
+    suspicious = bool(row.get("is_suspicious", False))
+    dot = "alert" if suspicious else "ok"
+    row_cls = "suspect" if suspicious else ""
+    reason = _esc(row.get("reason", ""))
+    if len(reason) > 48:
+        reason = reason[:45] + "…"
+
+    return f"""
+    <div class="tx-row {row_cls}">
+      <span class="tx-dot {dot}"></span>
+      <span class="tx-col-id">{_esc(row.get('transaction_id'))}</span>
+      <span class="tx-col-merchant">{_esc(row.get('merchant', '—'))}</span>
+      <span class="tx-col-user">{_esc(row.get('user_id'))}</span>
+      <span class="tx-col-country">{_esc(row.get('country', '—'))}</span>
+      <span class="tx-col-amount">{_esc(row.get('amount'))} {_esc(row.get('currency', ''))}</span>
+      <span class="tx-col-score" style="color:{color}">{score:.0%}</span>
+      <span class="tx-col-reason" title="{_esc(row.get('reason', ''))}">{reason}</span>
+    </div>"""
+
+
+def _render_tx_compact_list(view) -> None:
+    rows = "".join(_tx_row_html(row) for _, row in view.iterrows())
+    st.markdown(f"""
+    <div class="tx-list">
+      <div class="tx-head">
+        <span></span><span>ID</span><span>Commerçant</span><span>Client</span>
+        <span>Pays</span><span>Montant</span><span>Score</span><span>Raison</span>
+      </div>
+      {rows}
+    </div>
+    """, unsafe_allow_html=True)
+
+
+def _render_inspector(row) -> None:
+    score = float(row.get("fraud_score", 0))
+    rule = float(row.get("rule_score", score))
+    ai = float(row.get("ai_score", 0))
+    label, color = _risk_level(score)
+    suspicious = bool(row.get("is_suspicious", False))
+    status_cls = "alert" if suspicious else "ok"
+    status_txt = "Transaction suspecte" if suspicious else "Transaction conforme"
+    verdict_color = "#f87171" if suspicious else "#4ade80"
+
+    chips = [
+        ("Client", row.get("user_id")),
+        ("Montant", f"{row.get('amount')} {row.get('currency', '')}"),
+        ("Commerçant", row.get("merchant")),
+        ("Pays", row.get("country")),
+        ("Date", str(row.get("timestamp", ""))[:19]),
+        ("Carte présente", "Oui" if row.get("card_present") else "Non" if row.get("card_present") is False else "—"),
+    ]
+
+    chips_html = "".join(
+        f'<div class="info-chip"><div class="info-chip-label">{_esc(lbl)}</div>'
+        f'<div class="info-chip-value">{_esc(val)}</div></div>'
+        for lbl, val in chips
+    )
+
+    scores_html = (
+        _score_bar("Score règles métier", rule, "#38bdf8")
+        + _score_bar("Score IA", ai, "#a78bfa")
+        + _score_bar("Score final fusionné", score, color)
+    )
+
+    st.markdown(f"""
+    <div class="inspector-wrap">
+      <div class="inspector-header">
+        <div>
+          <div class="inspector-id">{_esc(row.get('transaction_id'))}</div>
+          <div style="color:#64748b;font-size:0.85rem;margin-top:4px;">
+            Niveau de risque : <strong style="color:{color}">{label}</strong>
+          </div>
+        </div>
+        <div class="inspector-status {status_cls}">{status_txt}</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:24px;">
+        <div>
+          <div style="color:#94a3b8;font-size:0.78rem;font-weight:600;text-transform:uppercase;
+                      letter-spacing:0.06em;margin-bottom:10px;">Détails de la transaction</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">{chips_html}</div>
+        </div>
+        <div>
+          <div style="color:#94a3b8;font-size:0.78rem;font-weight:600;text-transform:uppercase;
+                      letter-spacing:0.06em;margin-bottom:10px;">Analyse des scores</div>
+          {scores_html}
+        </div>
+      </div>
+      <div class="verdict-box" style="border-color:{verdict_color}">
+        <div style="font-size:0.72rem;color:#64748b;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">
+          Verdict &amp; justification
+        </div>
+        <div style="color:#e2e8f0;font-size:0.95rem;line-height:1.5;">
+          {_esc(row.get('reason', 'Aucune anomalie détectée.'))}
+        </div>
+      </div>
+    </div>
+    """, unsafe_allow_html=True)
 
 
 def _init_session() -> None:
@@ -294,13 +595,15 @@ def render_interface(transactions: list[dict], results: list[dict]) -> None:
     ])
 
     with tab_table:
+        st.markdown('<div class="filter-panel">', unsafe_allow_html=True)
         f1, f2, f3, f4 = st.columns(4)
         countries = ["(Tous)"] + sorted(df["country"].dropna().unique().tolist()) if "country" in df.columns else ["(Tous)"]
         users = ["(Tous)"] + sorted(df["user_id"].dropna().unique().tolist()) if "user_id" in df.columns else ["(Tous)"]
-        country = f1.selectbox("Pays", countries, key="filter_country")
-        user_f = f2.selectbox("Client", users, key="filter_user")
-        only_sus = f3.checkbox("Suspectes seulement", key="filter_suspicious")
-        min_s = f4.slider("Score min.", 0.0, 1.0, 0.0, 0.05, key="filter_min_score")
+        country = f1.selectbox("🌍 Pays", countries, key="filter_country")
+        user_f = f2.selectbox("👤 Client", users, key="filter_user")
+        only_sus = f3.checkbox("🚨 Suspectes uniquement", key="filter_suspicious")
+        min_s = f4.slider("📊 Score minimum", 0.0, 1.0, 0.0, 0.05, key="filter_min_score")
+        st.markdown("</div>", unsafe_allow_html=True)
 
         view = df.copy()
         if country != "(Tous)":
@@ -309,15 +612,46 @@ def render_interface(transactions: list[dict], results: list[dict]) -> None:
             view = view[view["user_id"] == user_f]
         if only_sus:
             view = view[view["is_suspicious"]]
-        view = view[view["fraud_score"] >= min_s]
+        view = view[view["fraud_score"] >= min_s].sort_values("fraud_score", ascending=False)
 
-        cols = [c for c in [
-            "transaction_id", "timestamp", "user_id", "amount", "currency",
-            "merchant", "country", "fraud_score", "rule_score", "ai_score",
-            "niveau_risque", "is_suspicious", "reason",
-        ] if c in view.columns]
-        st.dataframe(view[cols].sort_values("fraud_score", ascending=False),
-                     use_container_width=True, hide_index=True)
+        sus_count = int(view["is_suspicious"].sum()) if "is_suspicious" in view.columns else 0
+        st.markdown(
+            f'<span class="tx-count">{len(view)} transaction(s) · {sus_count} alerte(s)</span>',
+            unsafe_allow_html=True,
+        )
+
+        if view.empty:
+            st.info("Aucune transaction ne correspond aux filtres.")
+        else:
+            view_mode = st.radio(
+                "Affichage",
+                ["Compact", "Tableau"],
+                horizontal=True,
+                key="tx_view_mode",
+                label_visibility="collapsed",
+            )
+
+            if view_mode == "Compact":
+                _render_tx_compact_list(view)
+            else:
+                cols = [c for c in [
+                    "transaction_id", "timestamp", "user_id", "amount", "currency",
+                    "merchant", "country", "fraud_score", "rule_score", "ai_score",
+                    "niveau_risque", "is_suspicious", "reason",
+                ] if c in view.columns]
+                st.dataframe(
+                    view[cols],
+                    width="stretch",
+                    hide_index=True,
+                    column_config={
+                        "fraud_score": st.column_config.ProgressColumn(
+                            "Score", min_value=0, max_value=1, format="%.0f%%",
+                        ),
+                        "rule_score": st.column_config.NumberColumn("Règles", format="%.2f"),
+                        "ai_score": st.column_config.NumberColumn("IA", format="%.2f"),
+                        "is_suspicious": st.column_config.CheckboxColumn("Suspect"),
+                    },
+                )
 
     with tab_alertes:
         alerts = df[df["is_suspicious"]].sort_values("fraud_score", ascending=False)
@@ -373,31 +707,25 @@ def render_interface(transactions: list[dict], results: list[dict]) -> None:
         """)
 
     st.markdown("---")
-    st.subheader("🔍 Inspecter une transaction")
+    st.markdown('<p class="section-title">🔍 Inspecter une transaction</p>', unsafe_allow_html=True)
+
     if not df.empty:
-        sel = st.selectbox("Transaction", df["transaction_id"].tolist(), key="inspect_transaction")
+        tx_index = df.set_index("transaction_id")
+        tx_options = df.sort_values("fraud_score", ascending=False)["transaction_id"].tolist()
+
+        def _tx_label(tid: str) -> str:
+            r = tx_index.loc[tid]
+            icon = "🚨" if r["is_suspicious"] else "✅"
+            return f"{icon} {tid} — {float(r['fraud_score']):.0%}"
+
+        sel = st.selectbox(
+            "Sélectionner une transaction à analyser en détail",
+            tx_options,
+            key="inspect_transaction",
+            format_func=_tx_label,
+        )
         row = df[df["transaction_id"] == sel].iloc[0]
-        score = float(row["fraud_score"])
-        label, color = _risk_level(score)
-        left, right = st.columns([2, 1])
-        with left:
-            st.json({
-                "id": row.get("transaction_id"),
-                "client": row.get("user_id"),
-                "montant": f"{row.get('amount')} {row.get('currency', '')}",
-                "pays": row.get("country"),
-                "commerçant": row.get("merchant"),
-                "score_règles": row.get("rule_score"),
-                "score_ia": row.get("ai_score"),
-                "score_final": score,
-            })
-        with right:
-            st.markdown(f"**{label}**", help="Niveau de risque")
-            st.progress(min(score, 1.0))
-            if row.get("is_suspicious"):
-                st.error(row.get("reason", ""))
-            else:
-                st.success(row.get("reason", "Conforme"))
+        _render_inspector(row)
 
 
 def main() -> None:
